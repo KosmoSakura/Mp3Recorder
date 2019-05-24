@@ -16,7 +16,7 @@ public class ULame {
      * @param inChannel     流中的通道数
      * @param outSamplerate 输出采样率(Hz)
      * @param outBitrate    压缩比(KHz)
-     * @param quality       质量
+     * @param quality       mp3质量
      * @apiNote 初始化
      * 关于质量∈[0,9]
      * 0->最高质量，最慢
