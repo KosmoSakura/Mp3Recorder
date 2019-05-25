@@ -1,61 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/play_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/file_name_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="file_name.mp4"
-            android:textSize="18sp"/>
-
-        <SeekBar
-            android:id="@+id/seekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <FrameLayout
+        android:id="@+id/play_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#61000000">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/current_progress_text_view"
-                android:layout_width="0dp"
+                android:id="@+id/play_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="00:00"/>
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="18sp"/>
+
+            <SeekBar
+                android:id="@+id/play_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <ImageView
-                android:id="@+id/fab_play"
+                android:id="@+id/play_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_play"/>
 
-
-            <TextView
-                android:id="@+id/file_length_text_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="00:00"/>
         </LinearLayout>
-
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+</FrameLayout>

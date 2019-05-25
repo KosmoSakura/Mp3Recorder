@@ -1,45 +1,16 @@
-/*
 #include <jni.h>
 
-extern "C" {
-#endif
-*/
-/*
- * Class:     Java_cos_mos_recorder_decode_ULame
- * Method:    init
- * Signature: (IIIII)V
- *//*
+extern "C"
+{
+void Java_cos_mos_recorder_decode_ULame_close(JNIEnv *env, jclass type);
 
-JNIEXPORT void JNICALL
-Java_cos_mos_recorder_decode_ULame_init(JNIEnv *, jclass, jint, jint, jint, jint, jint);
+jint Java_cos_mos_recorder_decode_ULame_encode(JNIEnv *env, jclass type, jshortArray buffer_l_,
+                                               jshortArray buffer_r_, jint samples,
+                                               jbyteArray mp3buf_);
 
-*/
-/*
- * Class:     Java_cos_mos_recorder_decode_ULame
- * Method:    encode
- * Signature: ([S[SI[B)I
- *//*
+jint Java_cos_mos_recorder_decode_ULame_flush(JNIEnv *env, jclass type, jbyteArray mp3buf_);
 
-JNIEXPORT jint JNICALL
-Java_cos_mos_recorder_decode_ULame_encode(JNIEnv *, jclass, jshortArray, jshortArray, jint,
-                                          jbyteArray);
-
-*/
-/*
- * Class:     Java_cos_mos_recorder_decode_ULame
- * Method:    flush
- * Signature: ([B)I
- *//*
-
-JNIEXPORT jint JNICALL Java_cos_mos_recorder_decode_ULame_flush(JNIEnv *, jclass, jbyteArray);
-
-*/
-/*
- * Class:     Java_cos_mos_recorder_decode_ULame
- * Method:    close
- * Signature: ()V
- *//*
-
-JNIEXPORT void JNICALL Java_cos_mos_recorder_decode_ULame_close(JNIEnv *, jclass);
+void Java_cos_mos_recorder_decode_ULame_init(JNIEnv *env, jclass type, jint inSampleRate,
+                                                    jint outChannel, jint outSampleRate,
+                                                    jint outBitrate, jint quality);
 }
-*/

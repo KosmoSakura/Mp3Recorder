@@ -40,8 +40,8 @@
 
     <ImageButton
         android:id="@+id/main_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@drawable/sl_tune"
         android:onClick="mainClick"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,11 +51,9 @@
         app:layout_constraintVertical_bias="0.65"/>
 
     <TextView
-        android:id="@+id/recording_status_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
         android:text="这是个开关"
         android:textColor="#000000"
         android:textSize="17sp"

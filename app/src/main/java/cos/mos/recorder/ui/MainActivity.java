@@ -9,29 +9,29 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import cos.mos.recorder.R;
-import cos.mos.recorder.record.RecordingService;
+import cos.mos.recorder.decode.MP3Recorder;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mRecordingPrompt;
     private ImageButton tRecord;
-    private Chronometer mChronometer;
-    private boolean mStartRecording = true;
-    private boolean mPauseRecording = true;
-    private long timeWhenPaused = 0;
-    private int mRecordPromptCount = 0;
+    private Chronometer chronometer;
+    private MP3Recorder mp3Recorder = new MP3Recorder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tRecord = findViewById(R.id.main_switch);
-        mChronometer = findViewById(R.id.chronometer);
-        mRecordingPrompt = findViewById(R.id.recording_status_text);
+        chronometer = findViewById(R.id.chronometer);
     }
 
     public void mainClick(View view) {
@@ -42,74 +42,42 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main_switch:
                 tRecord.setSelected(!tRecord.isSelected());
                 if (tRecord.isSelected()) {
-                    onRecord(mStartRecording);
-                    mStartRecording = !mStartRecording;
+                    start();
                 } else {
-                    onPauseRecord(mPauseRecording);
-                    mPauseRecording = !mPauseRecording;
+                    stop();
                 }
                 break;
         }
     }
 
-    private void onRecord(boolean start) {
-        Intent intent = new Intent(this, RecordingService.class);
-        if (start) {
-            // 开始
-            File folder = new File(Environment.getExternalStorageDirectory() + "/SoundRecorder");
-            if (!folder.exists()) {
-                folder.mkdir();
-            }
-
-            //开始时计
-            mChronometer.setBase(SystemClock.elapsedRealtime());
-            mChronometer.start();
-            mChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                @Override
-                public void onChronometerTick(Chronometer chronometer) {
-                    if (mRecordPromptCount == 0) {
-                        mRecordingPrompt.setText("R .");
-                    } else if (mRecordPromptCount == 1) {
-                        mRecordingPrompt.setText("R . .");
-                    } else if (mRecordPromptCount == 2) {
-                        mRecordingPrompt.setText("R . . .");
-                        mRecordPromptCount = -1;
-                    }
-                    mRecordPromptCount++;
-                }
-            });
-
-            //start RecordingService
-            startService(intent);
-            //keep screen on while recording
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            mRecordingPrompt.setText("R .");
-            mRecordPromptCount++;
-        } else {
-            //停止
-            mChronometer.stop();
-            mChronometer.setBase(SystemClock.elapsedRealtime());
-            timeWhenPaused = 0;
-            mRecordingPrompt.setText("这是个开关");
-            stopService(intent);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stop();
     }
 
-    /**
-     * @param pause 暂停
-     */
-    private void onPauseRecord(boolean pause) {
-        if (pause) {
-            //暂停
-            mRecordingPrompt.setText("Resume");
-            timeWhenPaused = mChronometer.getBase() - SystemClock.elapsedRealtime();
-            mChronometer.stop();
-        } else {
-            //恢复
-            mRecordingPrompt.setText("Pause");
-            mChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenPaused);
-            mChronometer.start();
+
+    private void start() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Mp3Recorder/");
+        if (!dir.exists()) {
+            dir.mkdir();
         }
+        try {
+            mp3Recorder.start(new File(dir, dateFormat.format(new Date()) + ".mp3"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    private void stop() {
+        mp3Recorder.stop();
+        chronometer.stop();
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        Toast.makeText(this, "播放列表点下面", Toast.LENGTH_SHORT).show();
     }
 }
