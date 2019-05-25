@@ -8,6 +8,22 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+                abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+            }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['clibs']
+        }
     }
     buildTypes {
         release {
@@ -22,20 +38,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-    def appName = "Mp3Recorder"
-    android.applicationVariants.all { cos ->
-        cos.outputs.each { mos ->
-            if (mos.outputFileName.endsWith("apk")) {
-                if (cos.buildType.name == 'debug') {
-                    def date = new Date().format("yyyy.MM.dd", TimeZone.getTimeZone("GMT+08"))
-                    mos.outputFileName = new File("/", "${appName}_${date}.apk")
-                } else {
-                    def date = new Date().format("yyyy.MM.dd-HHmm", TimeZone.getTimeZone("GMT+08"))
-                    mos.outputFileName = new File("/", "${appName}_${date}.apk")
-                }
-            }
-        }
     }
 }
 
