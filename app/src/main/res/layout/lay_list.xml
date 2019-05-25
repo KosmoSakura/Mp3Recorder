@@ -5,11 +5,11 @@
     android:layout_height="60dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="@dimen/dp_10">
+    android:padding="10dp">
 
     <ImageView
-        android:layout_width="@dimen/dp_40"
-        android:layout_height="@dimen/dp_40"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/ic_icon"/>
 
