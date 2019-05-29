@@ -44,6 +44,12 @@ public class ULame {
      */
     public native static int encode(short[] bufferLeft, short[] bufferRight, int samples, byte[] mp3buf);
 
+    /**
+     * @param inputPath wav路径
+     * @param mp3Path   mp3输出文件路径
+     * @apiNote wav 转 mp3
+     */
+//    public native static void wav2Mp3(String inputPath, String mp3Path);
 
     /**
      * @param mp3buf 结果编码的MP3流。您必须指定至少7200字节。

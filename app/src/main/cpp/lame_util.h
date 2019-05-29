@@ -11,6 +11,8 @@ jint Java_cos_mos_recorder_decode_ULame_encode(JNIEnv *env, jclass type, jshortA
 jint Java_cos_mos_recorder_decode_ULame_flush(JNIEnv *env, jclass type, jbyteArray mp3buf_);
 
 void Java_cos_mos_recorder_decode_ULame_init(JNIEnv *env, jclass type, jint inSampleRate,
-                                                    jint outChannel, jint outSampleRate,
-                                                    jint outBitrate, jint quality);
+                                             jint outChannel, jint outSampleRate,
+                                             jint outBitrate, jint quality);
+//void Java_cos_mos_recorder_decode_ULame_wav2Mp3(JNIEnv *env, jobject obj, jstring jwav,
+//                                                jstring jmp3, jint inSamplerate);
 }
