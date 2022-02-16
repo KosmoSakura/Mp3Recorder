@@ -8,7 +8,7 @@ package cos.mos.recorder.decode;
  */
 public class ULame {
     static {
-        System.loadLibrary("lame");
+        System.loadLibrary("jni");
     }
 
     /**

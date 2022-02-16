@@ -1,42 +1,22 @@
-local.properties
+.DS_Store
+/captures
 .externalNativeBuild
-google-services.json
-freeline_project_description.json
-freeline.py
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
-.idea/caches
-# fastlane
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots
-fastlane/test_output
-fastlane/readme.md
+.cxx
+
+# Built application files
 *.apk
-*.ap_
-*.dex
-*.class
-*.classpath
-*.project
-*.log
-*.iml
-*.jks
+
+# Gradle files
 .gradle/
-.settings/
-.navigation/
-.idea/
-release/
-bin/
-gen/
-out/
-debug/
-release/
 build/
-proguard/
-captures/
-freeline/
-sampledata/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Android Studio
+*.iml
+.idea/
+app/proguardMapping.txt
+app/release/
+tmpmob/
+

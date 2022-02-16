@@ -1,6 +1,6 @@
 #include <cwchar>
 #include "lame_util.h"
-#include "lamemp3/lame.h"
+#include "libmp3lame/lame.h"
 #include <jni.h>
 
 #include <sys/stat.h>

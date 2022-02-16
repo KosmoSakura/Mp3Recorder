@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "cos.mos.recorder"
         minSdkVersion 18
@@ -14,15 +14,14 @@ android {
                 abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
             }
         }
+        ndk {
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+        }
     }
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
-        }
-    }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['clibs']
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.10.2'
         }
     }
     buildTypes {
@@ -34,6 +33,10 @@ android {
     lintOptions {
         disable 'GoogleAppIndexingWarning'
         disable 'MissingTranslation'
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
