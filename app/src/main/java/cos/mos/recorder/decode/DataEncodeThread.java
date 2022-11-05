@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,24 +55,15 @@ public class DataEncodeThread extends HandlerThread implements AudioRecord.OnRec
     }
 
     @Override
-    public synchronized void start() {
-        super.start();
+    protected void onLooperPrepared() {
         handler = new StopHandler(getLooper(), this);
     }
 
-    private void check() {
-        if (handler == null) {
-            throw new IllegalStateException();
-        }
-    }
-
     public void sendStopMessage() {
-        check();
         handler.sendEmptyMessage(PROCESS_STOP);
     }
 
     public Handler getHandler() {
-        check();
         return handler;
     }
 
@@ -82,6 +74,7 @@ public class DataEncodeThread extends HandlerThread implements AudioRecord.OnRec
 
     @Override
     public void onPeriodicNotification(AudioRecord recorder) {
+//        Log.i("yeby", "onPeriodicNotification");
         processData();
     }
 
